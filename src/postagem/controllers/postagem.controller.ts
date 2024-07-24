@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { PostagemService } from "../services/postagem.service";
 import { Postagem } from "../entities/postagem.entity";
 
-@Controller("/postagens")
+@Controller("/postagens") // localhost:4000/postagens
 export class PostagemController{
 
     constructor(private readonly postagemService: PostagemService){}
@@ -13,13 +13,13 @@ export class PostagemController{
         return this.postagemService.findAll();
     }
    
-    @Get('/:id')
+    @Get('/:id') //localhost:4000/postagens/1
     @HttpCode(HttpStatus.OK) // Http Status 200
     findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem>{
         return this.postagemService.findById(id);
     }
 
-    @Get('/titulo/:titulo')
+    @Get('/titulo/:titulo') //localhost:400/postagens/ 
     @HttpCode(HttpStatus.OK) // Http Status 200
     findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]>{
         return this.postagemService.findByTitulo(titulo);

@@ -1,13 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { DeleteResult, Repository } from "typeorm";
+import { DeleteResult, ILike, Repository } from "typeorm";
 import { Postagem } from "../entities/postagem.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class PostagemService{
-    delete(id: number) {
-        throw new Error("Method not implemented.");
-    }
 
     constructor(
         @InjectRepository(Postagem) //injeçao de dependencia
@@ -32,10 +29,11 @@ export class PostagemService{
           );
         return buscaPostagem;
       }
+      
       async findByTitulo(titulo: string): Promise<Postagem[]> { // o colchete é usado quando se espera mais de um objeto, um array
         return await this.postagemRepository.find({
           where:{
-            titulo: ILike(%${titulo}%)
+            titulo: ILike(`%${titulo}%`)
           }
         })
 
@@ -50,12 +48,12 @@ export class PostagemService{
         let buscaPostagem = await this.findById(postagem.id);
 
         if (!buscaPostagem || !postagem.id)
-            throw new HttpException('A Postagem não foi encontrada!', Http.HttpStatus.NOT_FOUND)
+            throw new HttpException('A Postagem não foi encontrada!', HttpStatus.NOT_FOUND)
 
         return await this.postagemRepository.save(postagem);
       }
 
-      async this.delete(id:number): Promise<DeleteResult>{
+      async delete(id:number): Promise<DeleteResult>{
 
         let buscaPostagem = await this.findById(id)
 
