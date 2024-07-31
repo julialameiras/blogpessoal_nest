@@ -4,7 +4,6 @@ import { Postagem } from "../entities/postagem.entity";
 
 @Controller("/postagens") // localhost:4000/postagens
 export class PostagemController{
-
     constructor(private readonly postagemService: PostagemService){}
 
     @Get()
@@ -15,13 +14,13 @@ export class PostagemController{
    
     @Get('/:id') //localhost:4000/postagens/1
     @HttpCode(HttpStatus.OK) // Http Status 200
-    findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem>{
+    findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem> {
         return this.postagemService.findById(id);
     }
 
     @Get('/titulo/:titulo') //localhost:400/postagens/ 
     @HttpCode(HttpStatus.OK) // Http Status 200
-    findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]>{
+    findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]> {
         return this.postagemService.findByTitulo(titulo);
     }
 
