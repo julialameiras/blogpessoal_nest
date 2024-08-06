@@ -8,19 +8,15 @@ import { Tema } from './tema/entities/tema.entity';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AppController } from './app.controller';
+import { ConfigModule } from '@nestjs/config';
+import { ProdService } from './data/services/prod.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_blogpessoal', 
-      entities: [Postagem, Tema, Usuario], //só entra aqui o que gera tabela
-      synchronize: true,
-      //logging: true, Em produção isso não se usa. Serve para verificar o código SQL.
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      useClass: ProdService, //DevService para usar o BD local
+        imports: [ConfigModule],
     }),
     PostagemModule, 
     TemaModule, 
