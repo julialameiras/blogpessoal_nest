@@ -7,6 +7,7 @@ import { TemaModule } from './tema/tema.module';
 import { Tema } from './tema/entities/tema.entity';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -19,14 +20,14 @@ import { UsuarioModule } from './usuario/usuario.module';
       database: 'db_blogpessoal', 
       entities: [Postagem, Tema, Usuario], //só entra aqui o que gera tabela
       synchronize: true,
-      logging: true, 
+      //logging: true, Em produção isso não se usa. Serve para verificar o código SQL.
     }),
     PostagemModule, 
     TemaModule, 
     AuthModule,
     UsuarioModule
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
