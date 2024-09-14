@@ -19,9 +19,9 @@ export class PostagemService {
             tema: true,
             usuario: true
           }
-        }); 
-        
+        });        
     }
+
     async findById(id: number): Promise<Postagem> {
         let buscaPostagem = await this.postagemRepository.findOne({
           where: {
@@ -98,4 +98,3 @@ export class PostagemService {
 // entidade postagem define a tabela, onde tem varios atributos
 // classe de serviço = postagem service. dentro dela há seis metodos
 // o primeiro metodo é get all = para listar todas as postagens
-// 

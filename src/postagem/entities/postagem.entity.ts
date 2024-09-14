@@ -39,5 +39,4 @@ export class Postagem{
         onDelete: "CASCADE"
     })
     usuario: Usuario;
-
 }
